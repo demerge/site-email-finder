@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+.venv/
+venv/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+
+# Your real crawl data/outputs -- keep example data only, not scraped results
+contacts_with_found_emails.csv
+crawl_log.csv
+*.csv
+!examples/*.csv
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/

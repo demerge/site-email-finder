@@ -1,0 +1,31 @@
+# Example config for `site-email-finder --config examples/config.example.yaml ...`
+#
+# Copy this file, rename it, and edit the column names on the right to match
+# YOUR input CSV. Anything you don't set here falls back to the tool's
+# built-in defaults (which match a typical Yellow-Pages-style export).
+
+# Maps each OUTPUT column to the column name in YOUR input CSV.
+map_list:
+  - "Name=business_name"
+  - "Email=contact_email"
+  - "Website=site_url"
+  - "Profile=listing_url"
+  - "Category=category"
+  - "City=city"
+  - "State=state"
+  - "Bio=short_description"
+
+# Pages to try, in order, if the homepage doesn't have an email
+contact_paths:
+  - contact
+  - contact-us
+  - about
+  - team
+
+# Columns, in order, written to the output CSV
+output_columns:
+  - Name
+  - Email
+  - Bio
+  - Company
+  - Profile
