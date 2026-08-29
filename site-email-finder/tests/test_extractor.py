@@ -55,6 +55,14 @@ def test_clean_emails_filters_generic_placeholders():
     assert cleaned == ["real@biz.test"]
 
 
+def test_clean_emails_filters_empty_mailto():
+    """<a href="mailto:"> with no address produces an empty string in the
+    raw extraction -- must never be reported as a 'found' email."""
+    raw = ["", "   ", "real@biz.test"]
+    cleaned = clean_emails(raw)
+    assert cleaned == ["real@biz.test"]
+
+
 @responses.activate
 def test_find_emails_on_site_falls_back_to_contact_page():
     responses.add(responses.GET, "http://biz.test", body="<html>no email here</html>", status=200,
@@ -125,3 +133,22 @@ def test_find_emails_on_site_retries_before_giving_up():
 
     assert result.status == FOUND
     assert result.emails == ["owner@flaky.test"]
+
+
+@responses.activate
+def test_find_emails_on_site_ignores_empty_mailto_link():
+    """A styling-only <a href="mailto:"> with no address must not be
+    reported as FOUND with a blank email."""
+    responses.add(
+        responses.GET,
+        "http://emptymailto.test",
+        body='<html><a href="mailto:">Contact us</a></html>',
+        status=200,
+        content_type="text/html",
+    )
+    responses.add(responses.GET, "http://emptymailto.test/contact", status=404)
+
+    result = find_emails_on_site("http://emptymailto.test", contact_paths=["contact"])
+
+    assert result.status == NO_EMAIL_FOUND
+    assert result.emails == []

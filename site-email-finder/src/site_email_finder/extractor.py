@@ -54,6 +54,10 @@ def clean_emails(raw_emails, blocklist=None) -> list[str]:
     seen: list[str] = []
     for e in raw_emails:
         e_clean = e.strip().strip(".,;:").lower()
+        if not e_clean or "@" not in e_clean:
+            # Guards against e.g. <a href="mailto:"> with no address at all,
+            # which would otherwise show up as a "found" empty-string email.
+            continue
         if any(b in e_clean for b in blocklist):
             continue
         if e_clean not in seen:
