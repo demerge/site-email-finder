@@ -1,0 +1,3 @@
+name,email,website,primaryCategory,description,address/city,address/state,profileUrl
+Example Coffee Co,,https://example.com,Coffee shop,,Springfield,IL,https://example.com/profile
+Already Has Email LLC,info@alreadyhasemail.test,https://example.org,Consulting,A consulting firm that already has an email on file.,Portland,OR,https://example.org/profile

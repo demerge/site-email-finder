@@ -1,0 +1,31 @@
+# Config for a Google-Places-style export where the "emails" column exists
+# but is empty for most/all rows -- i.e. the exact situation this tool is
+# for. Columns here: categoryName, title, website, phone, address, city,
+# state, emails
+#
+# Usage:
+#   site-email-finder your_places_export.csv --config examples/config.google_places.yaml
+
+map_list:
+  - "Name=title"
+  - "Email=emails"
+  - "Website=website"
+  - "Category=categoryName"
+  - "City=city"
+  - "State=state"
+  # No separate description/profile columns in this export, so Bio falls
+  # back to "<category> in <city>, <state>" and Profile is left blank
+  # (falls back to the crawled website URL automatically).
+
+contact_paths:
+  - contact
+  - contact-us
+  - about
+  - about-us
+
+output_columns:
+  - Name
+  - Email
+  - Bio
+  - Company
+  - Profile
